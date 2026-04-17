@@ -1,0 +1,191 @@
+\documentclass[conference]{IEEEtran}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage[draft]{graphicx}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage[all]{hypcap}
+\graphicspath{{Images/}{../Images/}}
+
+\begin{document}
+
+\title{Comparative Analysis of Faster R-CNN and YOLOv5 on COCO-Style Object Detection}
+
+\author{
+\IEEEauthorblockN{Adil Khan, Rakshit Modanwal, Harsh Vardhan, Piyush Jain, Yash Vikram}
+\IEEEauthorblockA{
+Department of Computer Science and Engineering, \\
+Indian Institute of Information Technology, Nagpur, Maharashtra, India \\
+Emails: \{akhan, bt23csd062, bt23csd041, bt23csd067, bt23csd031\}@iiitn.ac.in
+}
+}
+
+\maketitle
+
+\begin{abstract}
+This report presents a comparative study of two object detectors, Faster R-CNN and YOLOv5, trained/evaluated in separate notebook pipelines. We compare mean Average Precision (mAP), inference speed, and bounding-box localization quality, and discuss the practical accuracy-speed trade-off. From the available Faster R-CNN checkpoints, we observe progressive improvement in mAP@0.50 up to 0.2741 at epoch 5, with stable per-epoch evaluation time. A complete side-by-side final comparison table and plots are provided, with YOLOv5 fields ready to be filled from notebook outputs. The report also includes visual analysis using sample detections and guidance on deployment scenarios.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Object detection, Faster R-CNN, YOLOv5, mAP, inference time, bounding box precision, accuracy-speed trade-off.
+\end{IEEEkeywords}
+
+\section{Introduction}
+Object detection systems are often evaluated by balancing detection quality and runtime efficiency. Two representative architectures are:
+\begin{itemize}
+    \item \textbf{Faster R-CNN}: a two-stage detector with region proposal and classification/regression heads.
+    \item \textbf{YOLOv5}: a one-stage detector optimized for real-time performance.
+\end{itemize}
+
+This report targets the required deliverables:
+\begin{enumerate}
+    \item Comparison of mAP scores for Faster R-CNN and YOLOv5.
+    \item Inference time analysis.
+    \item Bounding-box precision analysis.
+    \item Accuracy vs speed trade-off discussion.
+    \item Graphical analysis: mAP vs IoU, inference time, and sample detections.
+\end{enumerate}
+
+\section{Experimental Setup}
+\subsection{Pipelines}
+The comparison is based on two notebook workflows:
+\begin{itemize}
+    \item Faster R-CNN notebook pipeline with per-epoch checkpoints.
+    \item YOLOv5 notebook pipeline with training/evaluation and visualization utilities.
+\end{itemize}
+
+\subsection{Checkpoint Summary (Faster R-CNN)}
+From saved checkpoints (epochs 1--5), the following values are available:
+\begin{itemize}
+    \item Epoch 1: train loss 0.9156, mAP 0.0671, mAP@0.50 0.1437
+    \item Epoch 2: train loss 0.8572, mAP 0.0630, mAP@0.50 0.1414
+    \item Epoch 3: train loss 0.7987, mAP 0.1270, mAP@0.50 0.2413
+    \item Epoch 4: train loss 0.7702, mAP 0.1365, mAP@0.50 0.2580
+    \item Epoch 5: train loss 0.7537, mAP 0.1475, mAP@0.50 0.2741
+\end{itemize}
+
+\section{Quantitative Comparison}
+\subsection{mAP Comparison (Requirement 1)}
+Table~\ref{tab:map-comparison} summarizes final mAP metrics. Fill YOLOv5 values from your YOLO notebook evaluation outputs.
+
+\begin{table}[H]
+\centering
+\caption{Final mAP comparison between Faster R-CNN and YOLOv5.}
+\label{tab:map-comparison}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Model} & \textbf{mAP (0.50:0.95)} & \textbf{mAP@0.50} & \textbf{mAP@0.75} \\
+\midrule
+Faster R-CNN (Epoch 5) & 0.1475 & 0.2741 & [from checkpoint/plot] \\
+YOLOv5 (Final) & [fill] & [fill] & [fill] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Inference Time Analysis (Requirement 2)}
+Table~\ref{tab:speed-comparison} compares per-image or per-batch inference time. Fill YOLOv5 values from benchmark logs.
+
+\begin{table}[H]
+\centering
+\caption{Inference speed comparison.}
+\label{tab:speed-comparison}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Model} & \textbf{Inference Time} & \textbf{Notes} \\
+\midrule
+Faster R-CNN & [fill from your benchmark] & Two-stage detector \\
+YOLOv5 & [fill from your benchmark] & One-stage detector \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\noindent
+\textbf{Observation template:} If YOLOv5 latency is lower than Faster R-CNN, YOLOv5 is faster for real-time settings; otherwise, report the measured outcome directly.
+
+\subsection{Bounding Box Precision (Requirement 3)}
+Bounding box localization quality is analyzed by:
+\begin{itemize}
+    \item mAP@0.75 (higher IoU threshold, stricter localization quality),
+    \item visual inspection of sample detections,
+    \item false-positive and false-negative patterns in crowded/small-object scenes.
+\end{itemize}
+
+\noindent
+\textbf{Expected trend:} Faster R-CNN often provides tighter localization, while YOLOv5 usually offers faster predictions with competitive precision.
+
+\section{Accuracy vs Speed Trade-off (Requirement 4)}
+\subsection{When to Prefer Faster R-CNN}
+\begin{itemize}
+    \item Offline analysis where maximum localization quality is required.
+    \item Small-object-heavy scenes and cases where proposal-based refinement helps.
+    \item Evaluation pipelines prioritizing precision over latency.
+\end{itemize}
+
+\subsection{When to Prefer YOLOv5}
+\begin{itemize}
+    \item Real-time or near-real-time deployment.
+    \item Edge or constrained hardware where latency is critical.
+    \item Streaming applications (traffic analytics, drone feeds, live monitoring).
+\end{itemize}
+
+\subsection{Decision Rule}
+Use YOLOv5 when strict FPS requirements dominate. Use Faster R-CNN when per-box precision and robust localization are more important than throughput.
+
+\section{Graphical Analysis (Requirement 5)}
+\subsection{mAP vs IoU Threshold}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.48\textwidth]{Images/map_vs_iou_comparison.png}
+    \caption{mAP vs IoU threshold for Faster R-CNN and YOLOv5. Replace with your generated plot.}
+    \label{fig:map-iou}
+\end{figure}
+
+\subsection{Inference Time Comparison}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.48\textwidth]{Images/inference_time_comparison.png}
+    \caption{Inference time comparison between Faster R-CNN and YOLOv5. Replace with your generated bar chart/line chart.}
+    \label{fig:inference-time}
+\end{figure}
+
+\subsection{Sample Detection Images with Bounding Boxes}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.48\textwidth]{Images/sample_detections_frcnn.png}
+    \caption{Sample Faster R-CNN detections.}
+    \label{fig:frcnn-samples}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.48\textwidth]{Images/sample_detections_yolov5.png}
+    \caption{Sample YOLOv5 detections.}
+    \label{fig:yolo-samples}
+\end{figure}
+
+\section{Deliverables Checklist}
+\begin{itemize}
+    \item[$\checkmark$] Code implementation: training/evaluation scripts in both notebooks.
+    \item[$\checkmark$] Model weights: Faster R-CNN epoch checkpoints available.
+    \item[$\checkmark$] Evaluation metrics: mAP values available for Faster R-CNN; YOLOv5 fields included for final fill.
+    \item[$\checkmark$] Performance analysis report: this document.
+    \item[$\checkmark$] Visualizations: section placeholders included for all required plots and detection examples.
+\end{itemize}
+
+\section{Conclusion}
+This report provides a complete comparison structure for Faster R-CNN vs YOLOv5 with all mandatory sections and analysis points. Faster R-CNN shows measurable mAP improvement across epochs in the available checkpoints. Final conclusions on model superiority should be made after inserting YOLOv5 numeric results from your notebook outputs into the provided tables and figures. In most practical settings, the choice is application-driven: Faster R-CNN for precision-critical offline tasks, YOLOv5 for speed-critical real-time deployment.
+
+\begin{thebibliography}{99}
+\bibitem{ren2015faster}
+S. Ren, K. He, R. Girshick, and J. Sun, ``Faster R-CNN: Towards real-time object detection with region proposal networks,'' \emph{IEEE TPAMI}, 2017.
+
+\bibitem{yolov5}
+G. Jocher \emph{et al.}, ``YOLOv5,'' GitHub repository, 2020. [Online]. Available: \url{https://github.com/ultralytics/yolov5}
+
+\bibitem{coco}
+T.-Y. Lin \emph{et al.}, ``Microsoft COCO: Common objects in context,'' \emph{ECCV}, 2014.
+\end{thebibliography}
+
+\end{document}
