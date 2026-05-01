@@ -1,1 +1,86 @@
-/.venv
+# ── Python ───────────────────────────────────────────────
+.venv/
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+*.egg
+
+# ── Jupyter ───────────────────────────────────────────────
+.ipynb_checkpoints/
+*.nbconvert/
+
+# ── Data & Large Files ────────────────────────────────────
+*.zip
+*.tar.gz
+*.tar
+*.h5
+*.hdf5
+*.pkl
+*.pickle
+*.pt
+*.pth
+*.bin
+*.onnx
+*.weights
+*.safetensors
+
+# ── YOLO / Training Artifacts ────────────────────────────
+runs/
+wandb/
+mlruns/
+
+# ── LaTeX build artifacts ────────────────────────────────
+*.aux
+*.bbl
+*.blg
+*.fls
+*.fdb_latexmk
+*.out
+*.synctex.gz
+*.toc
+*.log
+*.lof
+*.lot
+*.nav
+*.snm
+*.vrb
+*.idx
+*.ind
+*.ilg
+
+# ── OS & Editor ───────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ── Extras (archived/intermediate files) ─────────────────
+Extras/
+
+# ── Intermediate report versions (keep only final) ───────
+report/6th_Semester.pdf
+report/cvdl_report_2.pdf
+report/CVDL_Report_v3_6th_Semester.pdf
+report/CVDL_Report_v4_6th_Semester.pdf
+report/CVDL_Report_v5_6th_Semester.pdf
+report/CVDL_Report_v6_6th_Semester.pdf
+report/v2.tex
+report/v3.tex
+report/v4.tex
+report/v5.tex
+report/v6.tex
+report/v3.log
+report/missing_graphs_by_model.html
+
+# ── Notebook result cache files ───────────────────────────
+results/__results___files/
+
+# ── Root-level duplicate PDFs ────────────────────────────
+G5.pdf
