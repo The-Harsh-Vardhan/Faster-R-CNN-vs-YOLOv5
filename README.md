@@ -28,6 +28,22 @@ Key evaluation axes: **mAP**, **inference speed (FPS)**, **bounding box quality*
 
 ---
 
+## 🧭 Evaluation Workflow
+
+```mermaid
+flowchart LR
+    D1[COCO-style dataset] --> FR[Faster R-CNN<br/>ResNet + FPN]
+    D1 --> YO[YOLOv5<br/>CSPDarknet + PANet]
+    D2[Pascal VOC dataset] --> FR
+    D2 --> YO
+    FR --> M[mAP, latency, FPS]
+    YO --> M
+    M --> G[Graph notebooks<br/>results/figures]
+    G --> R[IEEE report<br/>report/v7.tex]
+```
+
+---
+
 ## 🏆 Key Results
 
 ### COCO — Primary Analysis
@@ -106,8 +122,8 @@ Key evaluation axes: **mAP**, **inference speed (FPS)**, **bounding box quality*
 
 ```bash
 # Clone the repository
-git clone https://github.com/The-Harsh-Vardhan/CVDL-Project---6th-sem.git
-cd CVDL-Project---6th-sem
+git clone https://github.com/The-Harsh-Vardhan/Faster-R-CNN-vs-YOLOv5.git
+cd Faster-R-CNN-vs-YOLOv5
 
 # Create and activate virtual environment
 python -m venv .venv
@@ -164,15 +180,19 @@ $$\text{FPS} = \frac{1000}{T_{\text{ms}}}$$
 
 ## 📈 Visual Results
 
-| Metric | Figure |
-|--------|--------|
-| Loss vs Epoch | `results/figures/01_loss_vs_epoch.png` |
-| mAP vs Epoch | `results/figures/03_map_vs_epoch.png` |
-| mAP vs IoU Threshold | `results/figures/04_map_vs_iou_threshold.png` |
-| Inference Latency | `results/figures/06_inference_latency.png` |
-| FPS Comparison | `results/figures/05_fps_comparison.png` |
-| Precision-Recall Curve | `results/figures/07_precision_recall_curve.png` |
-| Sample Detections | `results/figures/11_sample_detections.png` |
+| Loss vs Epoch | mAP vs Epoch |
+|---|---|
+| ![Loss vs epoch](results/figures/01_loss_vs_epoch.png) | ![mAP vs epoch](results/figures/03_map_vs_epoch.png) |
+
+| mAP vs IoU Threshold | FPS Comparison |
+|---|---|
+| ![mAP vs IoU](results/figures/04_map_vs_iou_threshold.png) | ![FPS comparison](results/figures/05_fps_comparison.png) |
+
+| Inference Latency | Precision-Recall Curve |
+|---|---|
+| ![Latency](results/figures/06_inference_latency.png) | ![PR curve](results/figures/07_precision_recall_curve.png) |
+
+More plots (per-class mAP, FP vs FN, confidence distribution, sample detections) are in [`results/figures/`](results/figures/).
 
 ---
 
